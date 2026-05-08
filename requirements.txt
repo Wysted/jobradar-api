@@ -1,0 +1,12 @@
+alembic
+asyncpg
+fastapi
+openai
+pgvector
+pydantic
+pypdf
+reportlab>=4.4.0
+sqlalchemy[asyncio]
+tenacity
+tiktoken
+uvicorn

@@ -1,0 +1,48 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: scraping_masive
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d scraping_masive"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "${PORT:-8000}:${PORT:-8000}"
+    environment:
+      - PORT=${PORT:-8000}
+      - TEMP_DIR=/app/temp
+      - LOG_DIR=/app/logs
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/scraping_masive
+      - INTERNAL_API_KEY=${INTERNAL_API_KEY}
+      - API_KEY=${API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_EMBEDDING_MODEL=${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      - OPENAI_RERANK_MODEL=${OPENAI_RERANK_MODEL:-gpt-4o-mini}
+      - OPENAI_CV_MODEL=${OPENAI_CV_MODEL:-gpt-4o-mini}
+      - OPENAI_INGEST_MODEL=${OPENAI_INGEST_MODEL:-gpt-4o-mini}
+      - OPENAI_DIGEST_MODEL=${OPENAI_DIGEST_MODEL:-gpt-4o-mini}
+      - CV_BATCH_CONCURRENCY=${CV_BATCH_CONCURRENCY:-5}
+      - CV_OUTPUT_DIR=${CV_OUTPUT_DIR:-/app/output/cv}
+    volumes:
+      - ./logs:/app/logs
+      - ./output:/app/output
+      - .:/app
+
+volumes:
+  pgdata:

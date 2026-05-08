@@ -1,0 +1,22 @@
+FROM python:3.13-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENV TEMP_DIR=/app/temp \
+    LOG_DIR=/app/logs \
+    PORT=8000
+
+COPY . .
+
+RUN mkdir -p /app/temp /app/logs \
+    && chmod +x /app/entrypoint.sh
+
+EXPOSE ${PORT}
+
+ENTRYPOINT ["./entrypoint.sh"]

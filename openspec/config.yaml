@@ -1,0 +1,79 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Python 3.13, FastAPI, SQLAlchemy async, PostgreSQL (pgvector/pg16), Alembic
+  Architecture: Layered (routers/services/models/helpers/dependencies), async DB layer
+  Entry point: main.py (FastAPI app, 4 routers: linkedin, chiletrabajos, getonbrd, bne)
+  Config: TEMP_DIR, LOG_DIR, DATABASE_URL via env vars
+  Infrastructure: Docker Compose (db + api services)
+  Testing: No test runner configured (test/ contains only HTML fixtures)
+  Style: Python idiomatic, async/await patterns
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  detected: "2026-04-17"
+  note: "Strict TDD Mode unavailable — no test runner detected"
+
+  test_runner:
+    framework: null
+    command: null
+
+  layers:
+    unit:
+      available: false
+      tool: null
+    integration:
+      available: false
+      tool: null
+    e2e:
+      available: false
+      tool: null
+
+  coverage:
+    available: false
+    command: null
+
+  quality_tools:
+    linter:
+      available: false
+      command: null
+    type_checker:
+      available: false
+      command: null
+    formatter:
+      available: false
+      command: null
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules/packages (routers, services, models)
+    - Consider async patterns and DB session lifecycle
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Document HTTP status codes and response shapes
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+    - Note SQLAlchemy async constraints (session scope, lazy loading)
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing layered pattern (router → service → model)
+    - Use async/await throughout, propagate context properly
+    - Follow SQLAlchemy async session patterns from database/engine.py
+    tdd: false
+    test_command: null
+  verify:
+    - Compare implementation against every spec scenario
+    - Manually verify Docker Compose stack integrity
+    test_command: null
+    build_command: "docker compose build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas (large removals)
