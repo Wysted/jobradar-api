@@ -9,6 +9,18 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database import Base
 
 
+JOB_STATUS_NEW = "new"
+JOB_STATUS_INTERESTED = "interested"
+JOB_STATUS_APPLIED = "applied"
+JOB_STATUS_DISCARDED = "discarded"
+VALID_JOB_STATUSES = {
+    JOB_STATUS_NEW,
+    JOB_STATUS_INTERESTED,
+    JOB_STATUS_APPLIED,
+    JOB_STATUS_DISCARDED,
+}
+
+
 class JobScore(Base):
     __tablename__ = "job_scores"
 
@@ -51,6 +63,12 @@ class JobScore(Base):
     )
     # only_new mechanism (Q3): NULL = unviewed.
     viewed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    status: Mapped[str] = mapped_column(
+        Text, nullable=False, default=JOB_STATUS_NEW, server_default=JOB_STATUS_NEW
+    )
+    status_changed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
     cv_generated_at: Mapped[datetime | None] = mapped_column(

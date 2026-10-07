@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -33,6 +34,13 @@ class LLMScoreOutput(BaseModel):
 # API response shapes
 # ---------------------------------------------------------------------------
 
+JobStatus = Literal["new", "interested", "applied", "discarded"]
+
+
+class JobStatusIn(BaseModel):
+    status: JobStatus
+
+
 class RankedJob(BaseModel):
     """One entry in the ranked jobs list."""
     job_id: str
@@ -48,6 +56,8 @@ class RankedJob(BaseModel):
     llm_model: str
     scored_at: datetime
     viewed_at: datetime | None
+    status: JobStatus
+    status_changed_at: datetime | None
     # Denormalized job fields for display without a second request.
     title: str
     company: str
