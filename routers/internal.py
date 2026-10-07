@@ -7,7 +7,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_db
 from dependencies.auth import require_internal_key
-from models.database.pipeline_run import KIND_BACKFILL, KIND_RANK, KIND_SCRAPE
+from models.database.pipeline_run import (
+    KIND_BACKFILL,
+    KIND_RANK,
+    KIND_REFRESH,
+    KIND_SCRAPE,
+)
 from models.pipeline_run import ConflictResponse, RunOut, TriggerResponse
 from services import pipeline_runs
 from services.pipeline_runs import ActiveRunConflict
@@ -39,6 +44,20 @@ class BackfillRequest(BaseModel):
     max_jobs: int | None = None
 
 
+async def _refresh_conflict(db: AsyncSession) -> JSONResponse | None:
+    """409 if a refresh run is active: it chains scrape + embed + rank."""
+    active = await pipeline_runs.find_active_run(db, (KIND_REFRESH,))
+    if active is None:
+        return None
+    return JSONResponse(
+        status_code=status.HTTP_409_CONFLICT,
+        content=ConflictResponse(
+            active_run_id=str(active.id),
+            kind=KIND_REFRESH,
+        ).model_dump(),
+    )
+
+
 def _run_out(run) -> RunOut:
     return RunOut(
         id=str(run.id),
@@ -62,6 +81,10 @@ async def trigger_ranking(
     background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
+    conflict = await _refresh_conflict(db)
+    if conflict is not None:
+        return conflict
+
     try:
         run = await pipeline_runs.create_run(db, kind=KIND_RANK, trigger="n8n")
     except ActiveRunConflict as exc:
@@ -94,6 +117,10 @@ async def trigger_scrape(
     background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
+    conflict = await _refresh_conflict(db)
+    if conflict is not None:
+        return conflict
+
     try:
         run = await pipeline_runs.create_run(db, kind=KIND_SCRAPE, trigger="n8n")
     except ActiveRunConflict as exc:
@@ -123,6 +150,10 @@ async def trigger_backfill(
     background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
+    conflict = await _refresh_conflict(db)
+    if conflict is not None:
+        return conflict
+
     try:
         run = await pipeline_runs.create_run(db, kind=KIND_BACKFILL, trigger="n8n")
     except ActiveRunConflict as exc:

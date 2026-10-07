@@ -25,3 +25,10 @@ class RunOut(BaseModel):
     finished_at: datetime | None
     stats: dict
     error: str | None
+
+
+class RefreshConflictResponse(BaseModel):
+    """409 body of the public refresh endpoint: some pipeline run is active."""
+    detail: str
+    active_run_id: str
+    active_kind: str

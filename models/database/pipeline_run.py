@@ -15,7 +15,8 @@ KIND_SCRAPE = "scrape"
 KIND_RANK = "rank"
 KIND_BACKFILL = "backfill"
 KIND_CV_BATCH = "cv_batch"
-VALID_KINDS = {KIND_SCRAPE, KIND_RANK, KIND_BACKFILL, KIND_CV_BATCH}
+KIND_REFRESH = "refresh"
+VALID_KINDS = {KIND_SCRAPE, KIND_RANK, KIND_BACKFILL, KIND_CV_BATCH, KIND_REFRESH}
 
 # ---------------------------------------------------------------------------
 # Status constants
