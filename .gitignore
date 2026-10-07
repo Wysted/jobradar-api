@@ -12,3 +12,7 @@ logs/
 venv/
 .idea/
 .vscode/
+
+# Generated artifacts (contain personal data)
+output/
+scripts/cv_generator/output/
