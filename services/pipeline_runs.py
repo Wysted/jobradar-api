@@ -14,6 +14,8 @@ from models.database.pipeline_run import (
 
 logger = logging.getLogger(__name__)
 
+ACTIVE_RUN_INDEX = "ux_pipeline_runs_active_per_kind"
+
 
 class ActiveRunConflict(Exception):
     def __init__(self, existing_run_id) -> None:
@@ -27,6 +29,15 @@ class InvalidTransition(Exception):
             f"invalid transition {current!r} → {requested!r}; "
             f"allowed: {VALID_TRANSITIONS.get(current, set())}"
         )
+
+
+def _violated_constraint(exc: IntegrityError) -> str | None:
+    """Name of the constraint/index behind an asyncpg integrity error."""
+    orig = exc.orig
+    name = getattr(orig, "constraint_name", None)
+    if name is None:
+        name = getattr(getattr(orig, "__cause__", None), "constraint_name", None)
+    return name
 
 
 async def create_run(
@@ -47,16 +58,37 @@ async def create_run(
         await session.commit()
         await session.refresh(run)
         return run
-    except IntegrityError:
+    except IntegrityError as exc:
         await session.rollback()
+        if _violated_constraint(exc) != ACTIVE_RUN_INDEX:
+            raise
         result = await session.execute(
             select(PipelineRun).where(
                 PipelineRun.kind == kind,
                 PipelineRun.status.in_(["queued", "running"]),
             )
         )
-        existing = result.scalar_one()
-        raise ActiveRunConflict(existing.id)
+        existing = result.scalar_one_or_none()
+        if existing is None:
+            # Conflicting run finished between the failed insert and this lookup.
+            raise
+        raise ActiveRunConflict(existing.id) from exc
+
+
+async def find_active_run(
+    session: AsyncSession, kinds: tuple[str, ...] | list[str]
+) -> PipelineRun | None:
+    """Oldest queued/running run among the given kinds, if any."""
+    result = await session.execute(
+        select(PipelineRun)
+        .where(
+            PipelineRun.kind.in_(list(kinds)),
+            PipelineRun.status.in_(["queued", "running"]),
+        )
+        .order_by(PipelineRun.started_at)
+        .limit(1)
+    )
+    return result.scalar_one_or_none()
 
 
 async def get_run(session: AsyncSession, run_id) -> PipelineRun | None:

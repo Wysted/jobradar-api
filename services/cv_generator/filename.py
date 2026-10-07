@@ -1,14 +1,26 @@
+import html
 import re
 import unicodedata
 
 _SLUG_RE = re.compile(r"[^A-Za-z0-9\-]+")
 _MAX_PART = 80
+_MAX_UNESCAPE_PASSES = 3
+
+
+def _unescape(text: str) -> str:
+    """Unescape HTML entities, repeating for double-escaped input (&amp;amp;)."""
+    for _ in range(_MAX_UNESCAPE_PASSES):
+        decoded = html.unescape(text)
+        if decoded == text:
+            break
+        text = decoded
+    return text
 
 
 def slugify(text: str) -> str:
     if not text:
         return ""
-    nfkd = unicodedata.normalize("NFKD", text)
+    nfkd = unicodedata.normalize("NFKD", _unescape(text))
     ascii_text = nfkd.encode("ascii", "ignore").decode("ascii")
     slug = _SLUG_RE.sub("_", ascii_text).strip("_")
     return slug[:_MAX_PART]
