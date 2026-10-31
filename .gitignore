@@ -16,3 +16,8 @@ venv/
 # Generated artifacts (contain personal data)
 output/
 scripts/cv_generator/output/
+
+# Local dumps and tool state (may contain personal data)
+test/
+.playwright-mcp/
+.claude/scheduled_tasks.lock
