@@ -1,8 +1,8 @@
-# Backend — scraping_jobs
+# jobradar-api
 
 API en FastAPI que recolecta ofertas laborales de portales de empleo (orientado a Chile), las compara contra un perfil de usuario mediante embeddings y un re-ranking con LLM, y genera CVs en PDF adaptados a cada oferta.
 
-El frontend vive en un repositorio separado: `<URL del repo frontend>`.
+El frontend vive en un repositorio separado: [jobradar-web](https://github.com/Wysted/jobradar-web).
 
 ## Funcionalidades
 
