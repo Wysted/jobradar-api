@@ -1,0 +1,11 @@
+# Allowlist: the context is the backend root, and the API's code, .env and data must not enter the build.
+*
+!scrapers/getonbrd/pyproject.toml
+!scrapers/getonbrd/requirements.lock
+!scrapers/getonbrd/src
+!scrapers/getonbrd/stub
+!models/__init__.py
+!models/database/__init__.py
+!models/database/job.py
+!models/database/platform.py
+**/__pycache__

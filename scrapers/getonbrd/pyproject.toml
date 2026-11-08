@@ -1,0 +1,38 @@
+[project]
+name = "visualizer-getonbrd"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "visualizer-sdk[scrapling]>=0.2.0,<0.3",
+    "sqlalchemy>=2.0,<3",
+    "psycopg[binary]>=3.2,<4",
+    "pgvector>=0.3",  # models/database/job.py imports its Vector type
+]
+
+[project.scripts]
+visualizer-getonbrd = "visualizer_getonbrd.__main__:main"
+
+[dependency-groups]
+dev = ["pyright==1.1.414", "pytest==9.2.0", "anyio"]
+
+[tool.uv.sources]
+# Development and tests only: the image never reads it, the runtime image already holds the SDK (ADR 0020).
+visualizer-sdk = { path = "../../../../visualizer/platform/packages/visualizer-sdk" }
+
+[build-system]
+requires = ["hatchling==1.33.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/visualizer_getonbrd"]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+# `stub` first: it stands in for backend/database (whose package import loads the API config); `../..` is the backend,
+# which supplies models/database, the same files the image copies.
+pythonpath = ["stub", "../..", "tests"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+extraPaths = ["stub", "../..", "tests"]

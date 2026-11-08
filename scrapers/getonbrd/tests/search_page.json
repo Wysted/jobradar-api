@@ -1,0 +1,474 @@
+{
+ "data": [
+  {
+   "id": "desarrollador-a-full-stack-financia-capital-santiago",
+   "type": "job",
+   "attributes": {
+    "title": "Desarrollador/a Full-Stack",
+    "description_headline": "Requerimientos del cargo",
+    "description": "<ul><li>Al menos 3 años de experiencia profesional con PHP y Laravel.</li><li>Experiencia desarrollando frontends con Vu",
+    "projects": "<p>Somos una empresa financiera que busca democratizar el acceso a financiamiento para pequeñas y medianas empresas. En ",
+    "functions_headline": "Funciones del cargo",
+    "functions": "<p>Dentro de tus principales funciones estarán:</p><ul><li>Desarrollar nuevos módulos y funcionalidades en nuestras plat",
+    "benefits_headline": "",
+    "benefits": "",
+    "desirable_headline": "Opcionales",
+    "desirable": "<p>Suma puntos si tienes:</p><ul><li>Experiencia con Python (FastAPI, pandas o SQLAlchemy) y despliegues serverless en A",
+    "remote": false,
+    "remote_modality": "no_remote",
+    "remote_zone": null,
+    "countries": [
+     "Chile"
+    ],
+    "lang": "lang_not_specified",
+    "category_name": "Programming",
+    "perks": [
+     "health_coverage",
+     "computer_provided",
+     "informal_dresscode"
+    ],
+    "min_salary": 1700,
+    "max_salary": 2000,
+    "published_at": 1793133968,
+    "response_time_in_days": {
+     "min": null,
+     "max": null
+    },
+    "applications_count": 97,
+    "location_regions": {
+     "data": []
+    },
+    "location_tenants": {
+     "data": []
+    },
+    "location_cities": {
+     "data": [
+      {
+       "id": 1,
+       "type": "location_city"
+      }
+     ]
+    },
+    "modality": {
+     "data": {
+      "id": 1,
+      "type": "modality"
+     }
+    },
+    "seniority": {
+     "data": {
+      "id": 3,
+      "type": "seniority"
+     }
+    },
+    "tags": {
+     "data": [
+      {
+       "id": 22,
+       "type": "tag"
+      },
+      {
+       "id": 53,
+       "type": "tag"
+      },
+      {
+       "id": 64,
+       "type": "tag"
+      },
+      {
+       "id": 102,
+       "type": "tag"
+      },
+      {
+       "id": 135,
+       "type": "tag"
+      },
+      {
+       "id": 76103,
+       "type": "tag"
+      }
+     ]
+    },
+    "company": {
+     "data": {
+      "id": 12324,
+      "type": "company"
+     }
+    }
+   },
+   "links": {
+    "public_url": "https://www.getonbrd.com/jobs/desarrollador-a-full-stack-financia-capital-santiago"
+   }
+  },
+  {
+   "id": "ai-aws-support-engineer-softserve-remote",
+   "type": "job",
+   "attributes": {
+    "title": "Support Engineer (AWS & IA)",
+    "description_headline": "Requirements",
+    "description": "<ul><li>+3 years of experience in cloud operations, application or data platform support, SRE, or DevOps, with Databrick",
+    "projects": "<p>SoftServe is a global digital services and consulting company with 30+ years of experience and 11,000+ professionals ",
+    "functions_headline": "Responsibilities",
+    "functions": "<ul><li>Monitor Databricks jobs, workflows, data pipelines, Oracle API ingestion processes, and AWS services, responding",
+    "benefits_headline": "Some of our benefits",
+    "benefits": "<ul><li><strong>SoftServe University:</strong> Access continuous learning opportunities, certification support, and lead",
+    "desirable_headline": "",
+    "desirable": "",
+    "remote": true,
+    "remote_modality": "remote_local",
+    "remote_zone": null,
+    "countries": [
+     "Remote"
+    ],
+    "lang": "en",
+    "category_name": "SysAdmin / DevOps / QA",
+    "perks": [],
+    "min_salary": null,
+    "max_salary": null,
+    "published_at": 1794006532,
+    "response_time_in_days": {
+     "min": null,
+     "max": null
+    },
+    "applications_count": 3,
+    "location_regions": {
+     "data": []
+    },
+    "location_tenants": {
+     "data": [
+      {
+       "id": 7,
+       "type": "location_tenant"
+      },
+      {
+       "id": 1,
+       "type": "location_tenant"
+      },
+      {
+       "id": 6,
+       "type": "location_tenant"
+      }
+     ]
+    },
+    "location_cities": {
+     "data": []
+    },
+    "modality": {
+     "data": {
+      "id": 1,
+      "type": "modality"
+     }
+    },
+    "seniority": {
+     "data": {
+      "id": 3,
+      "type": "seniority"
+     }
+    },
+    "tags": {
+     "data": [
+      {
+       "id": 18,
+       "type": "tag"
+      },
+      {
+       "id": 64,
+       "type": "tag"
+      },
+      {
+       "id": 126,
+       "type": "tag"
+      },
+      {
+       "id": 248,
+       "type": "tag"
+      },
+      {
+       "id": 887,
+       "type": "tag"
+      },
+      {
+       "id": 1066,
+       "type": "tag"
+      },
+      {
+       "id": 1617,
+       "type": "tag"
+      },
+      {
+       "id": 9000,
+       "type": "tag"
+      },
+      {
+       "id": 36958,
+       "type": "tag"
+      }
+     ]
+    },
+    "company": {
+     "data": {
+      "id": 12856,
+      "type": "company"
+     }
+    }
+   },
+   "links": {
+    "public_url": "https://www.getonbrd.com/jobs/ai-aws-support-engineer-softserve-remote"
+   }
+  },
+  {
+   "id": "lead-data-scientist-softserve-remote",
+   "type": "job",
+   "attributes": {
+    "title": "Lead Data Scientist",
+    "description_headline": "Requirements",
+    "description": "<ul><li>Master’s or Ph.D. degree in Computer Science or a related field</li><li>Advanced Python proficiency with hands-o",
+    "projects": "<p>SoftServe is a global digital services and consulting company with 30+ years of experience and 11,000+ professionals ",
+    "functions_headline": "Responsibilities",
+    "functions": "<ul><li>Define and drive technical vision for AI initiatives using the latest generative AI and agentic frameworks, ensu",
+    "benefits_headline": "Some of our benefits",
+    "benefits": "<ul><li><strong>SoftServe University:</strong> Access continuous learning opportunities, certification support, and lead",
+    "desirable_headline": "",
+    "desirable": "",
+    "remote": true,
+    "remote_modality": "remote_local",
+    "remote_zone": null,
+    "countries": [
+     "Remote"
+    ],
+    "lang": "en",
+    "category_name": "Data Science / Analytics",
+    "perks": [
+     "pet_friendly",
+     "flexible_hours",
+     "remote_partial",
+     "health_coverage",
+     "computer_provided",
+     "informal_dresscode",
+     "vacation_over_legal",
+     "beverages_and_snacks"
+    ],
+    "min_salary": null,
+    "max_salary": null,
+    "published_at": 1794006520,
+    "response_time_in_days": {
+     "min": null,
+     "max": null
+    },
+    "applications_count": 19,
+    "location_regions": {
+     "data": []
+    },
+    "location_tenants": {
+     "data": [
+      {
+       "id": 1,
+       "type": "location_tenant"
+      },
+      {
+       "id": 6,
+       "type": "location_tenant"
+      }
+     ]
+    },
+    "location_cities": {
+     "data": []
+    },
+    "modality": {
+     "data": {
+      "id": 1,
+      "type": "modality"
+     }
+    },
+    "seniority": {
+     "data": {
+      "id": 5,
+      "type": "seniority"
+     }
+    },
+    "tags": {
+     "data": [
+      {
+       "id": 18,
+       "type": "tag"
+      },
+      {
+       "id": 235,
+       "type": "tag"
+      },
+      {
+       "id": 261,
+       "type": "tag"
+      },
+      {
+       "id": 293,
+       "type": "tag"
+      },
+      {
+       "id": 855,
+       "type": "tag"
+      },
+      {
+       "id": 1617,
+       "type": "tag"
+      },
+      {
+       "id": 10195,
+       "type": "tag"
+      },
+      {
+       "id": 36838,
+       "type": "tag"
+      },
+      {
+       "id": 73913,
+       "type": "tag"
+      }
+     ]
+    },
+    "company": {
+     "data": {
+      "id": 12856,
+      "type": "company"
+     }
+    }
+   },
+   "links": {
+    "public_url": "https://www.getonbrd.com/jobs/lead-data-scientist-softserve-remote"
+   }
+  },
+  {
+   "id": "technical-lead-big-data-engineer-aws-softserve-remote",
+   "type": "job",
+   "attributes": {
+    "title": "Technical Lead Big Data Engineer (AWS)",
+    "description_headline": "Requirements",
+    "description": "<ul><li>5+ years of experience in Big Data or Data Engineering, including supporting production data platforms</li><li>S",
+    "projects": "<p>SoftServe is a global digital services and consulting company with over 30 years of experience and more than 11,000 p",
+    "functions_headline": "Responsibilities",
+    "functions": "<ul><li>Support, maintain, and enhance an existing AWS-based data platform and data ingestion pipelines</li><li>Develop ",
+    "benefits_headline": "Some of our benefits",
+    "benefits": "<ul><li><strong>SoftServe University:</strong> Access continuous learning opportunities, certification support, and lead",
+    "desirable_headline": "",
+    "desirable": "",
+    "remote": true,
+    "remote_modality": "remote_local",
+    "remote_zone": null,
+    "countries": [
+     "Remote"
+    ],
+    "lang": "en",
+    "category_name": "Data Science / Analytics",
+    "perks": [
+     "pet_friendly",
+     "flexible_hours",
+     "health_coverage",
+     "computer_provided",
+     "informal_dresscode",
+     "vacation_over_legal",
+     "beverages_and_snacks"
+    ],
+    "min_salary": null,
+    "max_salary": null,
+    "published_at": 1793995272,
+    "response_time_in_days": {
+     "min": null,
+     "max": null
+    },
+    "applications_count": 2,
+    "location_regions": {
+     "data": []
+    },
+    "location_tenants": {
+     "data": [
+      {
+       "id": 7,
+       "type": "location_tenant"
+      },
+      {
+       "id": 1,
+       "type": "location_tenant"
+      },
+      {
+       "id": 6,
+       "type": "location_tenant"
+      }
+     ]
+    },
+    "location_cities": {
+     "data": []
+    },
+    "modality": {
+     "data": {
+      "id": 1,
+      "type": "modality"
+     }
+    },
+    "seniority": {
+     "data": {
+      "id": 5,
+      "type": "seniority"
+     }
+    },
+    "tags": {
+     "data": [
+      {
+       "id": 18,
+       "type": "tag"
+      },
+      {
+       "id": 64,
+       "type": "tag"
+      },
+      {
+       "id": 126,
+       "type": "tag"
+      },
+      {
+       "id": 141,
+       "type": "tag"
+      },
+      {
+       "id": 227,
+       "type": "tag"
+      },
+      {
+       "id": 422,
+       "type": "tag"
+      },
+      {
+       "id": 629,
+       "type": "tag"
+      },
+      {
+       "id": 1148,
+       "type": "tag"
+      },
+      {
+       "id": 1267,
+       "type": "tag"
+      },
+      {
+       "id": 2087,
+       "type": "tag"
+      }
+     ]
+    },
+    "company": {
+     "data": {
+      "id": 12856,
+      "type": "company"
+     }
+    }
+   },
+   "links": {
+    "public_url": "https://www.getonbrd.com/jobs/technical-lead-big-data-engineer-aws-softserve-remote"
+   }
+  }
+ ],
+ "meta": {
+  "page": 1,
+  "per_page": 10,
+  "total_pages": 22
+ }
+}
