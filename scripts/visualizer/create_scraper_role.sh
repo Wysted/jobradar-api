@@ -62,10 +62,10 @@ tmp="$(mktemp)"
 cat "$tmp" >"$file"  # keeps the file's owner and mode
 rm -f "$tmp"
 IN_CONTAINER
-psql_admin -c 'SELECT pg_reload_conf()' >/dev/null
-# pg_hba_file_rules reads the file on disk, not the loaded config: it validates the syntax, and the reload above applies it.
+# pg_hba_file_rules reads the file on disk, not the loaded config: validate the syntax before the reload applies it.
 bad="$(psql_admin -tAc 'SELECT count(*) FROM pg_hba_file_rules WHERE error IS NOT NULL')"
 [[ "$bad" == 0 ]] || { echo "pg_hba.conf has $bad rule errors" >&2; exit 1; }
+psql_admin -c 'SELECT pg_reload_conf()' >/dev/null
 
 umask 077
 mkdir -p "$(dirname "$dsn_file")"

@@ -24,6 +24,7 @@ runtime_id="$(docker image inspect --format '{{.Id}}' "$RUNTIME_IMAGE" 2>/dev/nu
 # The libraries the image installs, pinned from uv.lock (--locked fails when uv.lock is stale), minus the packages the
 # runtime already pins (its constraints win; the SDK and its engine deps come from there).
 norm='{ sub(/==.*/, ""); gsub(/_/, "-"); print tolower($0) }'
+trap 'rm -f .runtime-pins' EXIT  # a stale uv.lock exits below; never leave the pins file behind
 docker run --rm --entrypoint cat "$RUNTIME_IMAGE" /app/constraints.txt | awk "$norm" >.runtime-pins
 uv export --locked --no-dev --no-emit-project --no-emit-package visualizer-sdk --no-hashes --no-header --no-annotate \
   | awk 'NR == FNR { pinned[$0] = 1; next } { n = $1; sub(/[ =;].*/, "", n); n = tolower(n); gsub(/_/, "-", n); if (!(n in pinned)) print }' \
