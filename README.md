@@ -213,6 +213,20 @@ docker compose exec api python scripts/jev/eval_rerank.py --dry-run --limit 20
 
 Los CVs y demás artefactos generados (`output/`, `scripts/cv_generator/output/`) están en `.gitignore` porque contienen datos personales. No los subas al repositorio.
 
+## Integración con el visualizer
+
+El scraper de GetOnBoard corre en el cluster del visualizer (`/home/wysted/code/visualizer`) y escribe directo en `scraping_masive`. Su código vive en `scrapers/getonbrd/` (proyecto uv aparte, no es parte del API).
+
+**Base de datos alcanzable desde el cluster.** El puerto 5432 se publica solo en `127.0.0.1`. El override `docker-compose.visualizer.yml` suma el servicio `db` a la red externa `visualizer-net` con IP fija `172.19.250.50` (la que permite la NetworkPolicy del sink). Sin el override el compose base arranca igual, aunque esa red no exista:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.visualizer.yml up -d db
+```
+
+**Rol del scraper.** `scripts/visualizer/create_scraper_role.sh <archivo dsn>` crea o rota el rol `getonbrd_scraper` (`SELECT` en `platforms`; `SELECT`, `INSERT` y `UPDATE (description)` en `jobs`; nada más), restringe ese rol a `172.19.0.0/16` en `pg_hba.conf` y escribe el DSN (modo 0600) en el archivo indicado, sin imprimir la contraseña. El operador pasa `platform/.tools/sinks/scraping-jobs/dsn`. Cada ejecución rota la contraseña.
+
+**Imagen.** `VISUALIZER_ACTOR=<email> scrapers/getonbrd/build.sh` construye `scraping-jobs/getonbrd:<tag>`, la importa al cluster y registra la definición (requiere el platform levantado: `deploy/up.sh`). Los tests (`cd scrapers/getonbrd && uv run pytest`) usan la base `getonbrd_test` del servicio `db`.
+
 ## Estructura
 
 ```
@@ -221,12 +235,14 @@ backend/
 ├── config.py                # Variables de entorno
 ├── entrypoint.sh            # alembic upgrade head + uvicorn
 ├── docker-compose.yml       # db (pgvector) + api
+├── docker-compose.visualizer.yml  # override: db en visualizer-net
 ├── routers/                 # Endpoints (profile, ranking, pipeline, settings, internal*)
 ├── services/                # Lógica: scrapers por plataforma, embeddings, refresh, ranking/, cv_generator/
 ├── models/                  # Esquemas Pydantic y modelos ORM (models/database/)
 ├── database/                # Engine, base y migraciones Alembic (migrations/versions/)
 ├── dependencies/            # Auth por API key y cliente OpenAI
 ├── helpers/                 # Cliente HTTP para scraping
-├── scripts/                 # CLIs: cv_generator/ y jev/
+├── scripts/                 # CLIs: cv_generator/, jev/ y visualizer/ (rol del scraper)
+├── scrapers/getonbrd/       # Scraper del visualizer (proyecto uv, imagen propia)
 └── openspec/                # Specs de comportamiento existente
 ```

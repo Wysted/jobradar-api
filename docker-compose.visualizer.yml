@@ -1,0 +1,14 @@
+# Joins the db to the visualizer platform's Docker network so the cluster's GetOnBoard pods can reach it
+# (visualizer ADR 0020, D2). Optional: the base compose still starts alone when `visualizer-net` does not exist.
+#   docker compose -f docker-compose.yml -f docker-compose.visualizer.yml up -d db
+# The fixed address is the one the platform's sink NetworkPolicy allows (a /32 on TCP 5432).
+services:
+  db:
+    networks:
+      default: {}
+      visualizer-net:
+        ipv4_address: 172.19.250.50
+
+networks:
+  visualizer-net:
+    external: true

@@ -18,3 +18,4 @@ venv/
 estructure/
 *.md
 Dockerfile
+scrapers/
